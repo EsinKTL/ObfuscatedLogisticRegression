@@ -21,7 +21,6 @@ class Metric(Enum):
 
 
 # TODO: threshold=0.5 is not correct for every metric, we need to revisit notes from the labs of AML.
-
 def evaluate(y_true, y_prob, metric=None, threshold=0.5):
     if metric is None:
         metric = Metric.F_MEASURE
@@ -38,3 +37,21 @@ def evaluate(y_true, y_prob, metric=None, threshold=0.5):
     }
 
     return table[metric]()
+
+
+METRIC_LABELS = {
+    Metric.RECALL:            "Recall",
+    Metric.PRECISION:         "Precision",
+    Metric.F_MEASURE:         "F1",
+    Metric.BALANCED_ACCURACY: "Balanced Accuracy",
+    Metric.AUC_ROC:           "ROC AUC",
+    Metric.AUC_PR:            "PR AUC",
+}
+
+
+def print_evaluation(name, y_true, y_proba, threshold=0.5):
+    print(f"[{name}]")
+    for metric in Metric:
+        score = evaluate(y_true, y_proba, metric, threshold)
+        print(f"  {METRIC_LABELS[metric]:<22}: {score:.4f}")
+    print()

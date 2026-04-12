@@ -1,3 +1,2 @@
-from .fista import sigmoid, logistic_loss, fista
-from .LogisticRegression import LogisticRegression
+from .LogisticRegressionFISTA import LogisticRegressionFISTA
 from .metrics import Metric, evaluate
